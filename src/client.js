@@ -346,6 +346,15 @@ class Client extends EventEmitter {
     }
 
     /**
+     * Returns host
+     *
+     * @returns {string|null}
+     */
+    getHost() {
+        return this._options.host;
+    }
+
+    /**
      * Set debug level
      *
      * @param enable {Boolean}
