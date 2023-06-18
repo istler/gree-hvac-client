@@ -2,6 +2,7 @@
 
 /**
  * Track temperature in a room
+ * Each host is mapped to a room, topic and climate
  */
 class BuildingClimate {
 
@@ -17,6 +18,13 @@ class BuildingClimate {
         this._store = {};
     }
     
+    /**
+     * Each host is mapped to a room, topic for initial setup
+     * 
+     * @param {string} host ip address of host
+     * @param {string} room name of room
+     * @param {string} topic mqtt topic
+     */
     mapHostToRoom(host, room, topic) {
         this._store[host] = { room, topic };
     }
@@ -25,7 +33,12 @@ class BuildingClimate {
         this._store[host].climate = climate;
     }
 
-    getHost(host) {
+    /**
+     * 
+     * @param {object} host may contain room, topic and climate 
+     * @returns 
+     */
+    getHostData(host) {
         return this._store[host];
     }
 
@@ -37,8 +50,8 @@ class BuildingClimate {
         return Object.values(this._store).map(climate => climate.room);
     }
 
-    getClimate(room) {
-        return this._store[room];
+    getClimate(host) {
+        return this._store[host].climate;
     }
 
     getFilteredRooms(filter) {
